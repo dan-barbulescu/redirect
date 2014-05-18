@@ -101,6 +101,25 @@ app.use(function(req, res, next) {
 
 // Run
 
-var server = app.listen(config.port, function() {
-    console.log('Started server %s on port %d', config.name, server.address().port);
+process.on('uncaughtException', function(err) {
+  if(err.errno === 'EACCES') {
+    if(config.port < 1024) {
+      console.error("Couldn't listen on port %d; you might require root priviledges.", config.port);
+    } else {
+      console.error("Couldn't listen on port %d: Access denied. Exiting.", config.port);
+    }
+    process.exit(3);
+  }
+  
+  if(err.errno === 'EADDRINUSE') {
+    console.error("Couldn't listen on port %d: Already in use. Exiting.", config.port);
+    process.exit(3);
+  }
+  
+  console.log(err);
+  process.exit(4);
+});
+
+server = app.listen(config.port, function() {
+  console.log('Started server %s on port %d', config.name, server.address().port);
 });
