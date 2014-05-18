@@ -27,7 +27,7 @@ Getting started
     > nodejs -e "require('mongoose').connect('database'); require('./auth.js').create('username', 'password');"
     
 4. Run the server
-    > nodejs server.js your.config
+    > nodejs server.js \<your.config\>
 
     You may require root priviledges if you're listening on a port < 1024 (e.g. 80)
 
