@@ -13,7 +13,7 @@ Getting started
     In  _./node_:
     > npm install
 
-2. Make a copy of ./node/server.config and edit it
+2. Make a copy of _./node/server.config_ and edit it
 
     __port__ = port on which the server will be listening
     
