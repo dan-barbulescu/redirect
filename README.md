@@ -17,9 +17,9 @@ Getting started
 
     __port__ = port on which the server will be listening
     
-    __name__ = hostname of server; localhost will NOT work
+    __name__ = hostname; _localhost_ will NOT work
     
-    __db__   = mongodb connection string 
+    __db__   = MongoDB connection string 
 
 3. Add a set of login credentials
 
