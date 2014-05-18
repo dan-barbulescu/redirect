@@ -1,0 +1,15 @@
+{
+  "name": "redirect",
+  "description": "A simple redirect service",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "vhost": "1.0.0",
+    "xml2js": "0.4.2",
+    "express": "3.6.0",
+    "mongoose": "3.8.9",
+    "sprintf-js": "0.0.7",
+    "cookie-parser": "1.1.0",
+    "mongoose-random": "0.0.2"
+  }
+}

@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/edit.css">
+    <link rel="stylesheet" href="/ajax.css">
+    
+    <style>
+      body {
+	padding-top: 50px;
+      }
+      
+      #result {
+	text-align: center;
+      }
+    </style>
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    
+    <script src="/ajax.js"></script>
+    
+    <script type="text/javascript">
+      function sendEdit() {
+	var data = { };
+	
+	data.hash = $("#hash").text();
+	data.url = $("#url").val();
+	
+	startAction(function() {
+	  postJson("/json/edit", JSON.stringify(data), function(reply) {
+	    location.reload();
+	  });
+	});
+	
+	return false;
+      }
+      
+      function beginDelete() {
+	$("#mainControls").fadeOut(150, function() {
+	  $("#action").text("Deleting");
+	  $("#deleteControls").fadeIn(150);
+	});
+	
+	return false;
+      }
+      
+      function confirmDelete() {
+	startAction(function() {
+	  var sr =
+	    '<?xml version="1.0" encoding="utf-8"?>' +
+	    '<soap:Envelope ' + 
+	      'xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" ' +
+	      'soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">' +
+		'<soap:Body xmlns:api="http://api.likes.to/">' +
+		  '<api:delete soap:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">' +
+		    '<hash>' + $("#hash").text() + '</hash>' +
+		  '</api:delete>' +
+		'</soap:Body>' +
+	    '</soap:Envelope>';
+	    
+	  $.ajax({
+	    type: "POST",
+	    url: "/soap",
+	    contentType: "text/xml",
+	    dataType: "xml",
+	    data: sr,
+	    success: function (reply) {
+	      var redirect = $(reply).find("soap\\:Envelope > soap\\:Body > api\\:redirect > href").text();
+	      if(redirect) {
+		window.location = redirect;
+	      }
+	    }
+	  });
+	});
+	
+	return false;
+      }
+      
+      function cancelDelete() {
+	$("#deleteControls").fadeOut(150, function() {
+	  $("#action").text("Editing");
+	  $("#mainControls").fadeIn(150);
+	});
+	
+	return false;
+      }
+      
+      $(function() {
+	$("#deleteControls").hide();
+	
+	var i = window.location.href.indexOf('?');
+	
+	if(-1 == i) {
+	  return;
+	}
+	
+	var hash = window.location.href.slice(i + 1);
+	
+	if(hash) {
+	  $("#hash").text(hash);
+	  
+	  var data = { };
+	  
+	  data.hash = $("#hash").text();
+	  
+	  postJson("/json/info", JSON.stringify(data), function(reply) {
+	    if(reply.url) {
+	      $("#url").val(reply.url);
+	    }
+	    
+	    pageReady();
+	  });
+	}
+      });
+    </script>
+    
+    <title>Edit redirect</title>
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+	<ul class="nav navbar-nav">
+	  <li><a href="/">Back</a></li>
+	</ul>
+      </div>
+    </div>
+    
+    <div id="loader" class="container-fluid"></div>
+
+    <div id="main" class="loading container-fluid">
+      <form id="editRedirectForm" class="form-edit" role="form">
+        <h2 class="form-edit-heading"><span id="action">Editing</span> <b><span id="hash"></span></b></h2>
+	<input id="url" type="text" name="url" class="form-control" placeholder="URL" required>
+	<div id="mainControls">
+	  <button class="btn btn-lg btn-primary col-sm-5 col-xs-12" type="submit" onClick="return sendEdit();">Update</button>
+	  <button class="btn btn-lg btn-warning col-sm-5 col-xs-12" type="button" onClick="return beginDelete();">Delete</button>
+	</div>
+	<div id="deleteControls">
+	  <button class="btn btn-lg btn-danger col-sm-5 col-xs-12" type="button" onClick="return confirmDelete();">Delete</button>
+	  <button class="btn btn-lg btn-primary col-sm-5 col-xs-12" type="button" onClick="return cancelDelete();">Cancel</button>
+	</div>
+      </form>
+    </div>
+    
+    <script language="javascript" type="text/javascript">
+
+    </script>
+    
+  </body>
+</html>
