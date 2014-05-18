@@ -8,12 +8,12 @@ Requires: Node.js, MongoDB
 Getting started
 ---------------
 
-1. Get dependencies:
+1. Get dependencies
 
     In  _./node_:
     > npm install
 
-2. Make a copy of ./node/server.config and edit it:
+2. Make a copy of ./node/server.config and edit it
 
     __port__ = port on which the server will be listening
     
@@ -21,7 +21,7 @@ Getting started
     
     __db__   = mongodb connection string 
 
-3. Add a set of login credentials using Node.js:
+3. Add a set of login credentials using Node.js
 
     In  _./node_:
     > nodejs -e "require('mongoose').connect('database'); require('./auth.js').create('username', 'password');"
