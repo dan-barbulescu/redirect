@@ -24,7 +24,7 @@ Getting started
     You may require root priviledges if you're listening on a port < 1024 (e.g. 80)
 
 5. Log in on
-    > http://admin.\<name.of.server\>[:\<port\>]/
+    > http://admin\.\<name.of.server\>[:\<port\>]/
 
 6. Create/edit/delete redirects
     Each redirect has a hex code
