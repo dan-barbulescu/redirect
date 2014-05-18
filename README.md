@@ -31,7 +31,7 @@ Getting started
 
     You may require root priviledges if you're listening on a port < 1024 (e.g. 80)
 
-5. Log in on
+5. Log on
     > http://admin\.\<name.of.server\>[:\<port\>]/
 
 6. Create/edit/delete redirects
