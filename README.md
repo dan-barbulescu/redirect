@@ -21,7 +21,7 @@ Getting started
     
     __db__   = mongodb connection string 
 
-3. Add a set of login credentials using Node.js
+3. Add a set of login credentials
 
     In  _./node_:
     > nodejs -e "require('mongoose').connect('database'); require('./auth.js').create('username', 'password');"
