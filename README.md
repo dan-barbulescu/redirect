@@ -3,7 +3,10 @@ redirect
 
 A simple redirect service
 
-Requires: Node.js, MongoDB
+Requires
+--------
+
+Node.js, MongoDB
 
 Getting started
 ---------------
