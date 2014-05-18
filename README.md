@@ -30,6 +30,7 @@ Getting started
     > http://admin\.\<name.of.server\>[:\<port\>]/
 
 6. Create/edit/delete redirects
+
     Each redirect has a hex code
 
 7. Try them out
