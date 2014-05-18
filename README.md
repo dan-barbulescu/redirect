@@ -11,12 +11,15 @@ Getting started
 1. Run npm in ./node
 
 2. Make a copy of ./node/server.config and edit it:
+
     __port__ = port on which the server will be listening
+    
     __name__ = hostname of server; localhost will NOT work
+    
     __db__   = mongodb connection string 
 
 3. Add a set of login credentials using Node.js:
-    > nodejs -e "require('mongoose').connect('sane database you used in config'); require('./auth.js').create('username', 'password');"
+    > nodejs -e "require('mongoose').connect('database'); require('./auth.js').create('username', 'password');"
     
 4. Run the server
     > nodejs server.js your.config
