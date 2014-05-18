@@ -21,12 +21,17 @@ if(3 > process.argv.length) {
 var config;
 require('xml2js').parseString(fs.readFileSync(process.argv[2]), { explicitArray: false }, function(err, data) {
   if(err) {
-    console.error("Could not parse config file \" + process.argv[2] + \". Exiting.");
+    console.error("Could not parse config file \"" + process.argv[2] + "\". Exiting.");
     process.exit(1);
   }
   
   config = data.server;
 });
+
+if(!config.name || !config.port || !config.db) {
+    console.error("Config file \"" + process.argv[2] + "\" is incomplete. Exiting.");
+    process.exit(1);
+}
 
 // Logging
 
