@@ -47,3 +47,65 @@ Getting started
     If no code is specified, a random one will be used
 
 8. Have fun!
+
+wabbit
+======
+
+A lightweight daemon that forwards data from MongoDB to RabbitMQ
+
+Requires
+--------
+
+boost, [MongoDB C++ Driver](https://github.com/mongodb/mongo-cxx-driver) (26compat), [RabbitMQ C AMQP client library](https://github.com/alanxz/rabbitmq-c)
+
+Getting started
+---------------
+
+1. Get dependencies
+
+2. Compile dependencies
+
+3. Compile _main.cpp_
+
+    Remember to set the lib and include paths to include the dependencies if you haven't installed them for system-wide availability
+    
+4. Make a copy of _./wabbit/wabbit.config_ and edit it
+
+    __seconds__ = how often to check and forward data, if any
+
+    __database__ = MongoDB host
+    
+    __query__ = MongoDB collection (e.g. database.collection)
+
+    __hostname__, __port__ = RabbitMQ host
+    
+    __vhost__ = RabbitMQ vhost
+    
+    __username__, __password__ = optional, RabbitMQ login credentials
+    
+    __queue__ = RabbitMQ queue
+
+    __skip__ = optional, fields to skip when forwading data
+
+5. Start wabbit
+
+    > ./wabbit \<your.config\>
+    
+    You can run as many instances as you want; it would be a good idea to have different config files for them
+    
+    You can check for errors in the system log:
+    
+    > grep wabbit /var/log/syslog
+
+    Configuration errors are non-recoverable; other errors will NOT prevent it from running and attempting to forward data with the set frequency
+    
+6. Control wabbit
+
+    > killall -SIGHUP wabbit
+    
+    HUP will cause wabbit to reload the configuration file; same as above, a config error will cause it to stop
+
+    > killall -SIGTERM wabbit
+    
+    TERM will cause wabbit to stop gracefully on the first occasion
+
