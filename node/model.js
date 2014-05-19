@@ -32,10 +32,19 @@ var authSchema = new mongoose.Schema({
     salt: String
   });
 
+// Use
+
+var useSchema = new mongoose.Schema({
+    ip: String,
+    hash: String,
+    agent: String
+  });
+
 // Exports
 
 module.exports = {
   Redirect: mongoose.model('Redirect', redirectSchema),
   Session: mongoose.model('Session', sessionSchema),
-  Auth: mongoose.model('Auth', authSchema)
+  Auth: mongoose.model('Auth', authSchema),
+  Use: mongoose.model('Use', useSchema)
 };
