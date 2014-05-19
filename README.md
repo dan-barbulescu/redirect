@@ -61,33 +61,31 @@ boost, [MongoDB C++ Driver](https://github.com/mongodb/mongo-cxx-driver) (26comp
 Getting started
 ---------------
 
-1. Get dependencies
+1. Get dependencies, compile dependencies
 
-2. Compile dependencies
-
-3. Compile _main.cpp_
+2. Compile _main.cpp_
 
     Remember to set the lib and include paths to include the dependencies if you haven't installed them for system-wide availability
     
-4. Make a copy of _./wabbit/wabbit.config_ and edit it
+3. Make a copy of _./wabbit/wabbit.config_ and edit it
 
     __seconds__ = how often to check and forward data, if any
 
     __database__ = MongoDB host
     
-    __query__ = MongoDB collection (e.g. database.collection)
+    __query__ = MongoDB collection (e.g. \<database\>.\<collection\>)
 
-    __hostname__, __port__ = RabbitMQ host
+    __hostname__, __port__ = RabbitMQ server
     
-    __vhost__ = RabbitMQ vhost
+    __vhost__ = RabbitMQ vhost name
     
     __username__, __password__ = optional, RabbitMQ login credentials
     
-    __queue__ = RabbitMQ queue
+    __queue__ = RabbitMQ queue name
 
-    __skip__ = optional, fields to skip when forwading data
+    __skip__ = optional, fields to skip when forwading data, whitespace-separated
 
-5. Start wabbit
+4. Start wabbit
 
     > ./wabbit \<your.config\>
     
@@ -99,7 +97,7 @@ Getting started
 
     Configuration errors are non-recoverable; other errors will NOT prevent it from running and attempting to forward data with the set frequency
     
-6. Control wabbit
+5. Control wabbit
 
     > killall -SIGHUP wabbit
     
@@ -107,5 +105,4 @@ Getting started
 
     > killall -SIGTERM wabbit
     
-    TERM will cause wabbit to stop gracefully on the first occasion
-
+    TERM will cause wabbit to stop gracefully as soon as possible
